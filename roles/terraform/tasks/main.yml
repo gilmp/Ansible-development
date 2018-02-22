@@ -1,0 +1,40 @@
+---
+# Installing terraform
+
+- name: "Creating terraform directory"
+  file:
+    name: "{{ item }}"
+    state: "directory"
+    recurse: "yes"
+    owner: "{{ primary_user.id }}"
+    group: "{{ primary_user.id }}"
+    mode: "0755"
+  with_items:
+    - "{{ terraform.home }}"
+  tags:
+    - terraform
+
+- name: "Installing terrafrom package"
+  apt:
+    name: "{{ item }}"
+    state: "latest"
+  with_items: "{{ libraries_apt }}"
+  tags:
+    - terraform
+
+- name: "wget"
+  get_url:
+    url: "{{ terraform.url }}{{ terraform.zip }}"
+    dest: "/tmp/{{ terraform.zip }}"
+  tags:
+   - terraform
+
+- name: "Unzip into directory"
+  unarchive:
+    src: "/tmp/{{ terraform.zip }}"
+    dest: " {{ terraform.home }}"
+    owner: "{{ primary_user.id }}"
+    group: "{{ primary_user.id }}"
+    creates: "{{ terraform.home }}/terraform"
+  tags:
+   - terraform

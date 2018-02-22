@@ -1,0 +1,29 @@
+---
+# defaults file for cntlm
+
+
+cntlm_config_file: /etc/cntlm.conf
+cntlm_service_name: cntlmd
+
+cntlm_config_template: cntlm.conf.j2
+
+cntlm_username: gilmp
+cntlm_domain: tpplc.local
+
+cntlm_pass_lm: 1AD35398BE6565DDB5C4EF70C0593492
+cntlm_pass_nt: 77B9081511704EE852F94227CF48A793
+cntlm_pass_ntlm: D5826E9C665C37C80B53397D5C07BBCB
+
+cntlm_proxies:
+  - { ip: 172.31.102.103, port: 8080 }
+  - { ip: 172.31.102.102, port: 8080 }
+cntlm_no_proxy: "localhost, 127.0.0.*, 10.*, 192.168.*, 172.*, *.travisperkins.com, *.tpplc.local, www.mytpcloud.com, *.mytpcloud.com"
+
+cntlm_listen_ip: 172.31.150.128:3128
+cntlm_listen_port: 3128
+
+cntlm_allows:
+  - 127.0.0.1
+cntlm_denies:
+  - 0/0
+

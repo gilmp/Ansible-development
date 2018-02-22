@@ -1,0 +1,30 @@
+---
+# Terminator role
+
+- name: "install Terminator"
+  apt:
+    name: "{{ item }}"
+    state: "latest"
+  with_items: "{{ libraries_apt }}"
+  tags:
+    - terminator
+
+- name: "Create Directory"
+  file: 
+    path: "{{ primary_user.home }}/.config/terminator"
+    state: directory
+    owner: "{{ primary_user.id }}"
+    group: "{{ primary_user.id }}"
+    mode: 0755
+  tags:
+    - terminator
+
+- name: "Copy terminator configuration"
+  template:
+    src: "config.j2"
+    dest: "{{ primary_user.home }}/.config/terminator/config"
+    owner: "{{ primary_user.id }}"
+    group: "{{ primary_user.id }}"
+    mode: 0644
+  tags:
+    - terminator

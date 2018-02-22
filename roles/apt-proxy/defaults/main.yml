@@ -1,0 +1,6 @@
+---
+# defaults file for apt-proxy
+
+ubuntu-proxy-fix: 
+  - 01proxy.j2
+  - 99FixbadProxy.j2

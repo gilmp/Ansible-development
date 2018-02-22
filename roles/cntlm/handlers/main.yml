@@ -1,0 +1,7 @@
+---
+# handlers file for cntlm
+
+- name: Restart CNTLM service
+  service:
+    state=restarted
+    name={{ cntlm_service_name }}

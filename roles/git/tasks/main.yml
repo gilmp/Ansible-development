@@ -1,0 +1,39 @@
+---
+# Installing git and repo for work environment
+
+- name: "mkdirs"
+  file:
+    name    : "{{ item }}"
+    state   : "directory"
+    owner   : "{{ primary_user.id }}"
+    group   : "{{ primary_user.id }}"
+    mode    : "0755"
+  with_items:
+    - "{{ git.home }}"
+  tags:
+    - git
+
+- name: "apt | install"
+  apt:
+    name    : "{{ item }}"
+    state   : "latest"
+  with_items: "{{ libraries_apt }}"
+  tags:
+    - git
+
+- name: " Clone Repo's"
+  git:
+    repo: 'https://github.com/gilmp/python-development.git'
+    dest: /home/gilmp/git/
+
+
+
+#- name: "Create symlink"
+#  file: src=
+#  state=link
+#       dest=
+#      owner={{ wso2_type }}
+#      group={{ wso2_type }}
+#  tags:
+#    - git
+

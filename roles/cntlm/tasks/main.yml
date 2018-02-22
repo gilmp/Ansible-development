@@ -1,0 +1,29 @@
+---
+# Installing cntlm
+
+- name: "installing cntlm"
+  apt: 
+    name : "{{ item }}"
+    state: "latest"
+  with_items: "{{ libraries_apt }}"
+  tags:
+    - cntlm
+
+- name: "Setting up CNTLM configuration"
+  template: >
+    src={{ cntlm_config_template }}
+    dest={{ cntlm_config_file }}
+    owner=0
+    group=0
+    mode=0600
+  notify: Restart CNTLM service
+  tags:
+    - cntlm
+
+- name: "Ensure CNTLM service is running"
+  service: >
+    name={{ cntlm_service_name }}
+    state=started 
+    enabled=yes
+  tags:
+    - cntlm
