@@ -2,11 +2,13 @@
 # configuring apt-proxy
 
 - name: Configuring apt directory for proxy
-  template: >
-    src:  "/etc/apt/apt.conf.d/{{ ubuntu-proxy-fix }}.j2"
-    dest: "/etc/apt/apt.conf.d/{{ ubuntu-proxy-fix }}"
+  template:
+    src:  "{{ item.src }}"
+    dest: "{{ item.dest }}"
     owner: "root"
     group: "root"
     mode: "0644"
+  with_items: apt_proxy_templates
+  when: apt_proxy_templates is defined and apt_proxy_templates is iterable
   tags:
     - apt-proxy

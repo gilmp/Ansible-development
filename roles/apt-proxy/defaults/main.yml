@@ -1,6 +1,8 @@
 ---
 # defaults file for apt-proxy
 
-ubuntu-proxy-fix: 
-  - 01proxy.j2
-  - 99FixbadProxy.j2
+apt_proxy_templates: 
+  - src: 01proxy.j2
+    dest: /etc/apt.conf.d/01proxy.j2
+  - src: 99FixbadProxy.j2
+    dest: /etc/apt.conf.d/99FixbadProxy.j2
